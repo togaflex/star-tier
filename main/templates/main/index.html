@@ -1,0 +1,9 @@
+{% if company_name_list %}
+    <ul>
+    {% for company in company_name_list %}
+        <li><a href="/{{ company.id }}/">{{ company }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No companies are available.</p>
+{% endif %}

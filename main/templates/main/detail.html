@@ -1,0 +1,10 @@
+{{ company }}
+{% if jobs %}
+    <ul>
+    {% for job in jobs %}
+        <li>{{job.job_role}}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No companies are available.</p>
+{% endif %}

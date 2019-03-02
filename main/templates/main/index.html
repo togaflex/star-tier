@@ -1,9 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<!-- <div class="wrapper">
+    <div class="jumbotron jumbotron-fluid rounded">
+        <div class="container">
+            <h1 class="display-4">Every Star Tier Job Starts Here.</h1>
+            <p class="lead">Be up-to-date about your internship place!</p>
+        </div>
+    </div>
+</div> -->
+
+
 {% if company_name_list %}
-    <ul>
-    {% for company in company_name_list %}
-        <li><a href="/{{ company.id }}/">{{ company }}</a></li>
-    {% endfor %}
-    </ul>
+{% for company in company_name_list %}
+<div class="accordion" id="accordion{{job.id}}">
+    <div class="wrapper">
+        <div class="card rounded">
+            <div class="card-header" id="heading{{company.id}}">
+                <a href="{% url 'main:detail' company.id%}">{{company.company_name}}</a>
+                <span class="badge badge-success"></span>
+                <img src="/static/images/{{company.company_name|lower}}.png" alt="" height="15px" align="right">
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% else %}
-    <p>No companies are available.</p>
+<p>No companies are available.</p>
 {% endif %}
+{% endblock %}

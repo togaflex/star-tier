@@ -1,10 +1,107 @@
-{{ company }}
+{% extends 'main/base.html' %}
+
+{% block content %}
 {% if jobs %}
-    <ul>
-    {% for job in jobs %}
-        <li>{{job.job_role}}</a></li>
-    {% endfor %}
-    </ul>
+{% for job in jobs %}
+<div class="accordion" id="accordion{{job.id}}">
+    <div class="wrapper">
+        <div class="card rounded">
+            <div class="card-header" id="heading{{job.id}}">
+                <h2 class="mb-0">
+                    <img src="/static/images/{{company.company_name|lower}}.png" alt="" height="15px">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{job.id}}"
+                        aria-expanded="true" aria-controls="collapse{{job.id}}">
+                        {{job.job_role}}
+                    </button>
+
+                    {% if job.job_status %}
+                    <button type="button" class="btn btn-success btn-sm">Open</button>
+                    {% else %}
+                    <button type="button" class="btn btn-danger btn-sm">Close</button>
+                    {% endif %}
+                </h2>
+            </div>
+            <div id="collapse{{job.id}}" class="collapse" aria-labelledby="heading{{job.id}}"
+                data-parent="#accordion{{job.id}}">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <b>Year Eligible</b>
+                            <div>
+                                {% for year in job.year_as_list %}
+                                <span class="badge badge-pill badge-warning">{{year}}</span>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Type</b>
+                            <div>
+                                {{job.get_job_type_display}}
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Location</b>
+                            <div>
+                                {{job.job_location}}
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Minimum Qualification</b>
+                            <div>
+                                <ul>
+                                    {% for point in job.min_qual_as_list %}
+                                    <li>{{point}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Prefered Qualification</b>
+                            <div>
+                                <ul>
+                                    {% for point in job.pre_qual_as_list %}
+                                    <li>{{point}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Description</b>
+                            <div>
+                                <p>
+                                    <button class="badge badge-primary" data-toggle="collapse"
+                                        data-target="#collapse_des{{job.id}}" aria-expanded="false"
+                                        aria-controls="collapse_des{{job.id}}">
+                                        See description
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapse_des{{job.id}}">
+                                    <div class="card card-body">
+                                        {{job.job_description}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Time Close</b>
+                            <div>
+                                {{job.job_closed}}
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Link</b>
+                            <div>
+                                <a href="http://{{job.job_link}}">{{job.job_role}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
 {% else %}
-    <p>No companies are available.</p>
+<p>No companies are available.</p>
 {% endif %}
+{% endblock %}

@@ -1,0 +1,17 @@
+html *
+{
+   font-family: 'PT Sans', sans-serif !important;
+}
+
+.wrapper{
+    padding: 10px;
+}
+
+img {
+    width: auto;
+    max-height: 100%;
+ }
+
+.flex-column {
+    width:70%; 
+}
